@@ -6,9 +6,28 @@ import (
 
 type Record struct {
 	Model
-	RoomRefer int64 `json:"rid" gorm:"column:rid"`   //会议室
-	UserRefer int64	 `json:"uid" gorm:"column:uid"`	//预订人
+	RoomName string `json:"roomname" gorm:"column:roomname"`   //会议室
+	UserName string	 `json:"username" gorm:"column:username"`	//预订人
 	Start time.Time `json:"start"` //开始时间
 	End time.Time `json:"end"`      //结束时间
-	Participate string `json:"participate_num" gorm:"column:participate_num"`//可容纳人数
+	Theme string `json:"theme" gorm:"column:theme"`//会议主题
+	Member string `json:"member"` //参会人员
+}
+
+func (r *Record) Create() error{
+	db := GetSelfDB()
+	r.CreateAt = time.Now()
+	return db.Create(&r).Error
+}
+
+func DeleteMeetInfo(id int64,u string) error{
+	db := GetSelfDB()
+	r := Record{}
+	r.ID = id
+	return db.Where(r.UserName).Delete(&r).Error
+}
+
+func (r *Record) Update() error{
+	db := GetSelfDB()
+	return db.Model(r).Updates(r).Error
 }

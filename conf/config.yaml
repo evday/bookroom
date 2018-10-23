@@ -1,0 +1,32 @@
+runmode: debug
+addr: :8081
+name: apiserver
+url: http://127.0.0.1:8081
+max_ping_count: 10
+jwt_secret: Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5
+gormlog: true
+log:
+  writers: file,stdout
+  logger_level: DEBUG
+  logger_file: log/apiserver.log
+  log_format_text: false
+  rollingPolicy: size
+  log_rotate_date: 1
+  log_rotate_size: 1
+  log_backup_count: 7
+db:
+  name: bookroom
+  addr: 127.0.0.1:3306
+  username: root
+  password: 
+docker_db:
+  name: bookroom
+  addr: 127.0.0.1:3306
+  username: root
+  password:
+redis:
+  password:
+  host: 127.0.0.1
+  port: 6379
+  maxIdle: 100
+  maxActive: 500
